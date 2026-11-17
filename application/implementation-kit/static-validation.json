@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "checks": 31392,
+  "api_operations": 99,
+  "models": [
+    {
+      "model": 1,
+      "tables": 61,
+      "rows": 303,
+      "users": 15,
+      "mock_scenarios": 13
+    },
+    {
+      "model": 2,
+      "tables": 61,
+      "rows": 295,
+      "users": 15,
+      "mock_scenarios": 13
+    },
+    {
+      "model": 3,
+      "tables": 61,
+      "rows": 394,
+      "users": 16,
+      "mock_scenarios": 16
+    },
+    {
+      "model": 4,
+      "tables": 61,
+      "rows": 306,
+      "users": 15,
+      "mock_scenarios": 14
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,376 @@
+{
+  "version": 2,
+  "title": "PayStar bank collaboration — operational diagrams",
+  "description": "Semantic implementation and meeting aids. No visual design specification or claim of live banking integration.",
+  "diagrams": [
+    {
+      "id": "model1_funds",
+      "title": "Model 1 — PayStar owns customer debt",
+      "kind": "flowchart",
+      "description": "Customer default does not automatically change PayStar repayment to lender. Clinic begins service after confirmed payout.",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "BANK",
+            "label": "Bank or investor"
+          },
+          {
+            "id": "PS",
+            "label": "PayStar creditor"
+          },
+          {
+            "id": "CLINIC",
+            "label": "Clinic"
+          },
+          {
+            "id": "CUSTOMER",
+            "label": "Customer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "BANK",
+            "to": "PS",
+            "label": "Facility funds"
+          },
+          {
+            "from": "PS",
+            "to": "CLINIC",
+            "label": "Full service principal"
+          },
+          {
+            "from": "CUSTOMER",
+            "to": "PS",
+            "label": "Installments and checks"
+          },
+          {
+            "from": "PS",
+            "to": "BANK",
+            "label": "Independent facility repayment"
+          },
+          {
+            "from": "CLINIC",
+            "to": "PS",
+            "label": "Optional capped guarantee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "model2_funds",
+      "title": "Model 2 — Clinic owns customer debt",
+      "kind": "flowchart",
+      "description": "No PayStar or bank upfront clinic funding. Clinic bears customer default and authorizes check enforcement.",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "CUSTOMER",
+            "label": "Customer"
+          },
+          {
+            "id": "CLINIC",
+            "label": "Clinic creditor"
+          },
+          {
+            "id": "PS",
+            "label": "PayStar servicer"
+          },
+          {
+            "id": "BANK",
+            "label": "Bank has no credit role"
+          }
+        ],
+        "edges": [
+          {
+            "from": "CUSTOMER",
+            "to": "CLINIC",
+            "label": "Gradual installments and checks"
+          },
+          {
+            "from": "PS",
+            "to": "CLINIC",
+            "label": "Assessment recommendation and servicing"
+          },
+          {
+            "from": "CLINIC",
+            "to": "PS",
+            "label": "Separate subscription or agreed service fees"
+          },
+          {
+            "from": "BANK",
+            "to": "CLINIC",
+            "label": "Optional account reconciliation only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "model3_funds",
+      "title": "Model 3 — Originate first and sell later",
+      "kind": "flowchart",
+      "description": "Legal assignment, purchase proceeds and servicing mandate are separate. Without-recourse ordinary default remains bank risk; warranties are separate.",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "PS",
+            "label": "PayStar originator"
+          },
+          {
+            "id": "CLINIC",
+            "label": "Clinic"
+          },
+          {
+            "id": "CUSTOMER",
+            "label": "Customer"
+          },
+          {
+            "id": "BANK",
+            "label": "Purchasing bank"
+          }
+        ],
+        "edges": [
+          {
+            "from": "PS",
+            "to": "CLINIC",
+            "label": "Upfront full principal before sale"
+          },
+          {
+            "from": "CUSTOMER",
+            "to": "PS",
+            "label": "Initial contract and check beneficiary"
+          },
+          {
+            "from": "PS",
+            "to": "BANK",
+            "label": "Verified assignment and check transfer"
+          },
+          {
+            "from": "BANK",
+            "to": "PS",
+            "label": "Separately confirmed purchase cash"
+          },
+          {
+            "from": "CUSTOMER",
+            "to": "BANK",
+            "label": "Post-transfer installments"
+          },
+          {
+            "from": "PS",
+            "to": "BANK",
+            "label": "Default recourse only if contracted"
+          }
+        ]
+      }
+    },
+    {
+      "id": "model4_funds",
+      "title": "Model 4 — Bank is creditor from inception",
+      "kind": "flowchart",
+      "description": "No PayStar-originated receivable sale. Bank final approval and payout evidence are mandatory; bank owns legal enforcement.",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "CUSTOMER",
+            "label": "Customer"
+          },
+          {
+            "id": "PS",
+            "label": "PayStar facilitator"
+          },
+          {
+            "id": "BANK",
+            "label": "Bank creditor"
+          },
+          {
+            "id": "CLINIC",
+            "label": "Clinic"
+          }
+        ],
+        "edges": [
+          {
+            "from": "PS",
+            "to": "BANK",
+            "label": "Prepared application and preliminary assessment"
+          },
+          {
+            "from": "BANK",
+            "to": "CUSTOMER",
+            "label": "Final decision and bank agreement"
+          },
+          {
+            "from": "CUSTOMER",
+            "to": "BANK",
+            "label": "Checks and installments"
+          },
+          {
+            "from": "BANK",
+            "to": "CLINIC",
+            "label": "Full service-principal disbursement"
+          },
+          {
+            "from": "PS",
+            "to": "CUSTOMER",
+            "label": "Mandated support and reminders"
+          },
+          {
+            "from": "CLINIC",
+            "to": "BANK",
+            "label": "Optional capped guarantee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sale_timing",
+      "title": "Model 3 — cash and legal ownership are independent",
+      "kind": "flowchart",
+      "description": "A cash delay never authorizes falsely displaying PayStar as current owner after legally effective transfer.",
+      "data": {
+        "direction": "LR",
+        "nodes": [
+          {
+            "id": "START",
+            "label": "Seller accepts exact bank offer"
+          },
+          {
+            "id": "EVIDENCE",
+            "label": "Verified legal assignment and check-holder acceptance"
+          },
+          {
+            "id": "CASH",
+            "label": "Bank purchase cash confirmed"
+          },
+          {
+            "id": "ADVANCE",
+            "label": "Cash first: bank advance held by PayStar"
+          },
+          {
+            "id": "RECEIVABLE",
+            "label": "Legal first: bank owns debt; PayStar has purchase-price receivable"
+          },
+          {
+            "id": "SETTLED",
+            "label": "Both complete: bank owns debt and seller has proceeds"
+          }
+        ],
+        "edges": [
+          {
+            "from": "START",
+            "to": "EVIDENCE",
+            "label": "Legal evidence arrives first"
+          },
+          {
+            "from": "START",
+            "to": "CASH",
+            "label": "Cash arrives first"
+          },
+          {
+            "from": "EVIDENCE",
+            "to": "RECEIVABLE",
+            "label": "Effective ownership changes"
+          },
+          {
+            "from": "CASH",
+            "to": "ADVANCE",
+            "label": "Do not change owner yet"
+          },
+          {
+            "from": "RECEIVABLE",
+            "to": "SETTLED",
+            "label": "Purchase cash arrives"
+          },
+          {
+            "from": "ADVANCE",
+            "to": "SETTLED",
+            "label": "Legal evidence becomes effective"
+          }
+        ]
+      }
+    },
+    {
+      "id": "verified_payment",
+      "title": "Verified payment — one atomic economic effect",
+      "kind": "sequence",
+      "description": "The browser redirect is not evidence of payment. Duplicates return the same result. Only authorized creditor account and amount can be allocated.",
+      "data": {
+        "participants": [
+          {
+            "id": "C",
+            "label": "Customer",
+            "actor": true
+          },
+          {
+            "id": "API",
+            "label": "PayStar API"
+          },
+          {
+            "id": "PROVIDER",
+            "label": "Payment adapter"
+          },
+          {
+            "id": "DB",
+            "label": "Transactional database"
+          },
+          {
+            "id": "UI",
+            "label": "Authorized role views"
+          }
+        ],
+        "messages": [
+          {
+            "from": "C",
+            "to": "API",
+            "text": "Request payment with idempotency key",
+            "kind": "sync"
+          },
+          {
+            "from": "API",
+            "to": "PROVIDER",
+            "text": "Create intent for current creditor account",
+            "kind": "sync"
+          },
+          {
+            "from": "PROVIDER",
+            "to": "API",
+            "text": "Signed confirmation or inquiry result",
+            "kind": "async"
+          },
+          {
+            "from": "API",
+            "to": "DB",
+            "text": "Lock; verify unique receipt; allocate; post balanced journal and outbox",
+            "kind": "sync"
+          },
+          {
+            "from": "DB",
+            "to": "API",
+            "text": "Commit one economic effect",
+            "kind": "reply"
+          },
+          {
+            "from": "API",
+            "to": "UI",
+            "text": "Authorized status event; refresh persisted statement",
+            "kind": "async"
+          },
+          {
+            "from": "PROVIDER",
+            "to": "API",
+            "text": "Duplicate callback",
+            "kind": "async"
+          },
+          {
+            "from": "API",
+            "to": "PROVIDER",
+            "text": "Acknowledge existing receipt; no second posting",
+            "kind": "reply"
+          }
+        ]
+      }
+    }
+  ]
+}

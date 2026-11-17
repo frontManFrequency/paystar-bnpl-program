@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {monthlyDueDates,nextBusinessDate,jalaliParts} from './calendar.mjs';
+test('standard demo schedule uses Jalali anniversaries and Tehran cutoff',()=>{const x=monthlyDueDates('2026-11-16');assert.deepEqual(x.map(x=>x.jalali),['1405-08-25','1405-09-25','1405-10-25','1405-11-25']);assert.deepEqual(x.map(x=>x.gregorian),['2026-11-16','2026-12-16','2027-01-15','2027-02-14']);assert.equal(x[0].dueAt,'2026-11-16T20:29:59.000Z');});
+test('month clamp preserves original day anchor across later longer months',()=>{const x=monthlyDueDates('2026-09-22',8);assert.equal(x[0].jalali,'1405-06-31');assert.equal(x[1].jalali,'1405-07-30');assert.equal(x[6].jalali,'1405-12-29');assert.equal(x[7].jalali,'1406-01-31');});
+test('Persian leap day converts and crosses year correctly',()=>{assert.deepEqual(jalaliParts('2025-03-20'),{year:1403,month:12,day:30});assert.equal(monthlyDueDates('2025-03-20')[1].jalali,'1404-01-30');});
+test('business day excludes synthetic holiday and Thursday/Friday',()=>{assert.equal(nextBusinessDate('2026-11-17',{holidays:['2026-11-18']}),'2026-11-21');});
+test('invalid Gregorian date and unbounded schedule rejected',()=>{assert.throws(()=>monthlyDueDates('2026-02-30'));assert.throws(()=>monthlyDueDates('2026-01-01',1000));});

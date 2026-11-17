@@ -1,0 +1,26 @@
+{
+  "engine": "PGlite 0.5.16 / embedded PostgreSQL; not a multi-process server test",
+  "models": [
+    {
+      "model": 1,
+      "inserted": 303,
+      "status": "PASS"
+    },
+    {
+      "model": 2,
+      "inserted": 295,
+      "status": "PASS"
+    },
+    {
+      "model": 3,
+      "inserted": 394,
+      "status": "PASS"
+    },
+    {
+      "model": 4,
+      "inserted": 306,
+      "status": "PASS"
+    }
+  ],
+  "assertions": 64
+}

@@ -1,0 +1,25 @@
+✔ standard demo schedule uses Jalali anniversaries and Tehran cutoff (3.563417ms)
+✔ month clamp preserves original day anchor across later longer months (3.94275ms)
+✔ Persian leap day converts and crosses year correctly (2.055459ms)
+✔ business day excludes synthetic holiday and Thursday/Friday (0.281291ms)
+✔ invalid Gregorian date and unbounded schedule rejected (0.370125ms)
+✔ 40m toman price, first repayment and early payoff conserve amounts (0.874041ms)
+✔ money rejects implicit floating point, exponent and negative representations (0.159583ms)
+✔ rounding and four-part schedules preserve every rial (1.065917ms)
+✔ repayment allocates oldest installment principal before fee and leaves overpayment unapplied (14.395875ms)
+✔ half return then full return and duplicate return release principal only once (0.507416ms)
+✔ payment between partial returns preserves paid refunds and unpaid cancellation (0.123333ms)
+✔ cumulative returns conserve odd amounts through full cancellation (12.181958ms)
+✔ guarantee needs legal authorization, recovery window, residual share and unused cap (0.125417ms)
+✔ sale discount and nonrecourse gate do not change customer face (0.210625ms)
+✔ role authority, checker and held/expired credit guards (0.200625ms)
+✔ recycled credit cannot bypass monthly affordability (0.111ms)
+✔ wire serialization keeps exact large amounts (0.073ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.654208
