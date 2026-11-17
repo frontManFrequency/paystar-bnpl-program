@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PayStar UI kit</title>
+<link rel="stylesheet" href="paystar-ui.css">
+<style>
+  /* Showcase-only helpers (not part of the kit) */
+  .demo-h { font-size: var(--ps-fs-small); font-weight: 700; color: var(--ps-text-subtle); letter-spacing: .02em; margin-block-end: var(--ps-2); }
+  .demo-row { display: flex; flex-wrap: wrap; gap: var(--ps-3); align-items: center; }
+  .demo-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--ps-2); }
+  .demo-swatch { border: 1px solid var(--ps-border-soft); border-radius: var(--ps-r-md); overflow: hidden; font-size: var(--ps-fs-small); background: var(--ps-surface); }
+  .demo-swatch b { display: block; block-size: 40px; }
+  .demo-swatch span { display: block; padding: 6px 8px; direction: ltr; text-align: end; }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite (inline, offline). Use: <svg class="ps-icon"><use href="#i-home"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 17l-5-5 5-5M5 12h11"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></symbol>
+</svg>
+
+<!-- 2. Notice banner -->
+<div class="ps-notice" role="note">
+  <svg class="ps-icon" aria-hidden="true"><use href="#i-warn"/></svg>
+  محیط شبیه‌سازی: داده‌ها واقعی نیستند و هیچ تراکنشی انجام نمی‌شود.
+</div>
+
+<!-- 1. Top bar -->
+<header class="ps-topbar">
+  <span class="ps-topbar__brand">پی‌استار مارکت</span>
+  <span class="ps-chip" style="background:var(--ps-success-bg);color:var(--ps-success-text)">آنلاین</span>
+  <div class="ps-topbar__end">
+    <span>علی رضایی</span>
+    <a href="#roles" class="ps-small">تغییر نقش</a>
+    <button type="button" class="ps-btn ps-btn--secondary ps-btn--sm" id="theme">تم تیره/روشن</button>
+    <button type="button" class="ps-btn ps-btn--secondary ps-btn--sm" id="dir">RTL/LTR</button>
+    <button type="button" class="ps-btn ps-btn--secondary ps-btn--sm">
+      <svg class="ps-icon ps-icon-dir" aria-hidden="true"><use href="#i-logout"/></svg> خروج
+    </button>
+  </div>
+</header>
+
+<div class="ps-layout">
+  <!-- 3. Sidebar -->
+  <nav class="ps-sidebar" aria-label="منوی اصلی">
+    <div class="ps-sidebar__user">
+      <span class="ps-avatar" aria-hidden="true">ع</span>
+      <div><div class="ps-sidebar__user-name">علی رضایی</div><div class="ps-sidebar__user-role">کارشناس اعتبار</div></div>
+    </div>
+    <ul class="ps-nav">
+      <li><a class="ps-nav__link" href="#" aria-current="page"><svg class="ps-icon" aria-hidden="true"><use href="#i-home"/></svg>داشبورد</a></li>
+      <li><a class="ps-nav__link" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-doc"/></svg>درخواست‌ها</a></li>
+      <li><a class="ps-nav__link" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-users"/></svg>مشتریان</a></li>
+      <li><a class="ps-nav__link" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-card"/></svg>تسهیلات</a></li>
+      <li><a class="ps-nav__link" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-settings"/></svg>تنظیمات</a></li>
+    </ul>
+    <div class="ps-sidebar__footer"><a class="ps-nav__link" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-info"/></svg>راهنما</a></div>
+  </nav>
+
+  <main class="ps-main">
+    <!-- 4. Breadcrumbs + page header, 5. Back link -->
+    <div class="ps-page-header">
+      <a class="ps-back" href="#"><svg class="ps-icon" aria-hidden="true"><use href="#i-arrow"/></svg>بازگشت به فهرست</a>
+      <ol class="ps-breadcrumbs" aria-label="مسیر">
+        <li><a href="#">داشبورد</a></li><li><a href="#">درخواست‌ها</a></li><li aria-current="page">درخواست ۱۲۴۵</li>
+      </ol>
+      <h1 class="ps-page-title">کیت رابط کاربری پی‌استار</h1>
+    </div>
+
+    <!-- Foundations -->
+    <section class="ps-card" aria-labelledby="f-t">
+      <h2 class="ps-card__title" id="f-t">پایه‌ها (توکن‌ها)</h2>
+      <div class="demo-swatches">
+        <div class="demo-swatch"><b style="background:var(--ps-primary)"></b><span>--ps-primary</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-bg)"></b><span>--ps-bg</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-surface)"></b><span>--ps-surface</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-border)"></b><span>--ps-border</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-text)"></b><span>--ps-text</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-text-muted)"></b><span>--ps-text-muted</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-success-bg);color:var(--ps-success-text);display:grid;place-items:center">success</b><span>bg + text</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-error-bg);color:var(--ps-error-text);display:grid;place-items:center">error</b><span>bg + text</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-warning-bg);color:var(--ps-warning-text);display:grid;place-items:center">warning</b><span>bg + text</span></div>
+        <div class="demo-swatch"><b style="background:var(--ps-info-bg);color:var(--ps-info-text);display:grid;place-items:center">info</b><span>bg + text</span></div>
+      </div>
+      <div>
+        <p class="ps-page-title">عنوان صفحه ۲۴</p>
+        <p class="ps-section-title">عنوان بخش ۲۰</p>
+        <p>متن اصلی ۱۴ پیکسل با ارقام فارسی ۱۲۳۴۵</p>
+        <p class="ps-small ps-muted">متن کوچک / زیرنویس ۱۲</p>
+        <p>شناسه: <span class="ps-id">REQ-2026-001245</span></p>
+      </div>
+    </section>
+
+    <!-- 7. KPI tiles -->
+    <section>
+      <h2 class="demo-h">KPI</h2>
+      <div class="ps-grid">
+        <div class="ps-stat"><span class="ps-stat__label">درخواست‌های امروز</span><span class="ps-stat__value">۱۲۸</span><span class="ps-stat__caption">۱۲٪ بیشتر از دیروز</span></div>
+        <div class="ps-stat"><span class="ps-stat__label">تأییدشده</span><span class="ps-stat__value">۹۴</span><span class="ps-stat__caption">۷۳٪ از کل</span></div>
+        <div class="ps-stat"><span class="ps-stat__label">در انتظار</span><span class="ps-stat__value">۲۱</span><span class="ps-stat__caption">میانگین ۴ ساعت</span></div>
+        <div class="ps-stat"><span class="ps-stat__label">ردشده</span><span class="ps-stat__value">۱۳</span><span class="ps-stat__caption">بیشتر به دلیل اعتبارسنجی</span></div>
+        <div class="ps-stat"><span class="ps-stat__label">مبلغ کل (ریال)</span><span class="ps-stat__value">۴٫۲ میلیارد</span><span class="ps-stat__caption">این ماه</span></div>
+      </div>
+    </section>
+
+    <!-- 8. Navigation tiles -->
+    <section>
+      <h2 class="demo-h">Navigation tiles</h2>
+      <div class="ps-grid ps-grid--wide">
+        <a class="ps-tile" href="#"><span class="ps-tile__icon"><svg class="ps-icon" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="ps-tile__title">درخواست‌های جدید</span><span class="ps-tile__desc">درخواست‌هایی که هنوز بررسی نشده‌اند</span><span class="ps-count" aria-label="۵ مورد">۵</span></a>
+        <a class="ps-tile" href="#"><span class="ps-tile__icon"><svg class="ps-icon" aria-hidden="true"><use href="#i-users"/></svg></span><span class="ps-tile__title">مشتریان</span><span class="ps-tile__desc">فهرست مشتریان و سوابق اعتبار</span></a>
+        <a class="ps-tile" href="#"><span class="ps-tile__icon"><svg class="ps-icon" aria-hidden="true"><use href="#i-card"/></svg></span><span class="ps-tile__title">قراردادها</span><span class="ps-tile__desc">قراردادهای در انتظار امضا</span><span class="ps-count" aria-label="۲ مورد">۲</span></a>
+      </div>
+    </section>
+
+    <!-- 6. Card + 9. Table + 10. Badges + 25. Inline form -->
+    <section class="ps-card" aria-labelledby="t-t">
+      <h2 class="ps-card__title" id="t-t">درخواست‌ها</h2>
+      <div class="demo-row">
+        <span class="ps-badge">پیش‌نویس</span>
+        <span class="ps-badge ps-badge--success">تأیید شد</span>
+        <span class="ps-badge ps-badge--error">رد شد</span>
+        <span class="ps-badge ps-badge--warning">نیاز به مدرک</span>
+        <span class="ps-badge ps-badge--info">در حال بررسی</span>
+      </div>
+      <div class="ps-table-wrap">
+        <table class="ps-table">
+          <thead><tr><th>شناسه</th><th>مشتری</th><th class="ps-num">مبلغ (ریال)</th><th>وضعیت</th><th>اقدام</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ps-id">REQ-001245</span></td><td>مریم احمدی</td><td class="ps-num">۲۵۰٬۰۰۰٬۰۰۰</td><td><span class="ps-badge ps-badge--info">در حال بررسی</span></td>
+              <td><form class="ps-inline-form" onsubmit="return false"><label class="ps-sr-only" for="r1">وضعیت</label><select class="ps-select" id="r1"><option>تأیید</option><option>رد</option></select><button class="ps-btn ps-btn--sm">ثبت</button></form></td></tr>
+            <tr><td><span class="ps-id">REQ-001244</span></td><td>رضا کریمی</td><td class="ps-num">۸۰٬۰۰۰٬۰۰۰</td><td><span class="ps-badge ps-badge--success">تأیید شد</span></td><td>—</td></tr>
+            <tr><td><span class="ps-id">REQ-001243</span></td><td>سارا نوری</td><td class="ps-num">۱۲۰٬۰۰۰٬۰۰۰</td><td><span class="ps-badge ps-badge--error">رد شد</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="demo-h">Empty table</h3>
+      <div class="ps-table-wrap">
+        <table class="ps-table"><thead><tr><th>شناسه</th><th>مشتری</th><th>وضعیت</th></tr></thead>
+          <tbody><tr><td colspan="3" class="ps-table__empty">هنوز درخواستی ثبت نشده است.</td></tr></tbody></table>
+      </div>
+    </section>
+
+    <!-- 11. Stepper + 12. Checklist -->
+    <section class="ps-card" aria-labelledby="s-t">
+      <h2 class="ps-card__title" id="s-t">پیشرفت درخواست</h2>
+      <ol class="ps-stepper">
+        <li class="ps-stepper__step ps-stepper__step--done"><span class="ps-stepper__dot" aria-hidden="true">✓</span>اطلاعات<span class="ps-sr-only">(انجام شد)</span></li>
+        <li class="ps-stepper__line ps-stepper__line--done" aria-hidden="true"></li>
+        <li class="ps-stepper__step ps-stepper__step--done"><span class="ps-stepper__dot" aria-hidden="true">✓</span>مدارک<span class="ps-sr-only">(انجام شد)</span></li>
+        <li class="ps-stepper__line" aria-hidden="true"></li>
+        <li class="ps-stepper__step ps-stepper__step--current" aria-current="step"><span class="ps-stepper__dot" aria-hidden="true">۳</span>اعتبارسنجی</li>
+        <li class="ps-stepper__line" aria-hidden="true"></li>
+        <li class="ps-stepper__step"><span class="ps-stepper__dot" aria-hidden="true">۴</span>قرارداد</li>
+      </ol>
+      <ul class="ps-checklist">
+        <li class="is-done"><span class="ps-checklist__mark" aria-hidden="true">✓</span><span class="ps-checklist__text">احراز هویت<span class="ps-sr-only"> — انجام شد</span></span></li>
+        <li class="is-done"><span class="ps-checklist__mark" aria-hidden="true">✓</span><span class="ps-checklist__text">استعلام چک برگشتی<span class="ps-sr-only"> — انجام شد</span></span></li>
+        <li class="is-pending"><span class="ps-checklist__mark" aria-hidden="true">…</span><span class="ps-checklist__text">رتبه اعتباری<small>در حال دریافت از سامانه</small><span class="ps-sr-only"> — در جریان</span></span></li>
+        <li class="is-failed"><span class="ps-checklist__mark" aria-hidden="true">✗</span><span class="ps-checklist__text">استعلام ضامن<small>کد ملی ضامن معتبر نیست</small><span class="ps-sr-only"> — ناموفق</span></span></li>
+        <li class="is-todo"><span class="ps-checklist__mark" aria-hidden="true"></span><span class="ps-checklist__text">صدور قرارداد<span class="ps-sr-only"> — انجام نشده</span></span></li>
+      </ul>
+    </section>
+
+    <!-- 13. Avatar, 14. Accordion, 15. Document, 16. Image card -->
+    <section class="ps-card" aria-labelledby="m-t">
+      <h2 class="ps-card__title" id="m-t">سایر نمایش‌ها</h2>
+      <div class="demo-row"><span class="ps-avatar" aria-hidden="true">م</span><span class="ps-avatar ps-avatar--sm" aria-hidden="true">ر</span></div>
+      <div>
+        <details class="ps-accordion" open><summary>شرایط بازپرداخت</summary><div class="ps-accordion__body">بازپرداخت در ۱۲ قسط ماهانه با کارمزد ۴٪ انجام می‌شود.</div></details>
+        <details class="ps-accordion"><summary>مدارک لازم</summary><div class="ps-accordion__body">کارت ملی، فیش حقوقی سه ماه اخیر.</div></details>
+      </div>
+      <div class="ps-document">
+        <span class="ps-document__watermark" aria-hidden="true">نمونه</span>
+        <h3 class="ps-section-title">قرارداد تسهیلات</h3>
+        <p>این قرارداد میان پی‌استار و خانم مریم احمدی به شماره ملی <span class="ps-id">0012345678</span> منعقد می‌شود و مبلغ ۲۵۰٬۰۰۰٬۰۰۰ ریال در ۱۲ قسط بازپرداخت خواهد شد.</p>
+      </div>
+      <div class="ps-grid">
+        <article class="ps-product">
+          <img class="ps-product__img" alt="گوشی همراه" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3Crect width='4' height='3' fill='%23e8ecef'/%3E%3Crect x='1.5' y='.5' width='1' height='2' rx='.15' fill='%2374858d'/%3E%3C/svg%3E">
+          <div class="ps-product__body"><span class="ps-product__title">گوشی همراه مدل الف</span><span class="ps-product__price">۲۴٬۵۰۰٬۰۰۰ ریال</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Forms -->
+    <section class="ps-card" aria-labelledby="fo-t">
+      <h2 class="ps-card__title" id="fo-t">فرم درخواست</h2>
+      <form class="ps-form" onsubmit="return false" novalidate>
+        <div class="ps-field">
+          <label class="ps-label" for="name">نام و نام خانوادگی <span class="ps-req" aria-hidden="true">*</span></label>
+          <input class="ps-input" id="name" required placeholder="مثلاً مریم احمدی">
+        </div>
+        <div class="ps-field">
+          <label class="ps-label" for="nid">کد ملی</label>
+          <input class="ps-input ps-input--ltr" id="nid" inputmode="numeric" placeholder="0012345678" aria-invalid="true" aria-describedby="nid-err">
+          <span class="ps-error-text" id="nid-err">کد ملی باید ۱۰ رقم باشد.</span>
+        </div>
+        <div class="ps-field">
+          <label class="ps-label" for="amount">مبلغ (ریال)</label>
+          <input class="ps-input ps-input--ltr" id="amount" inputmode="numeric" placeholder="250,000,000" aria-describedby="amount-help">
+          <span class="ps-help" id="amount-help">حداکثر ۵۰۰ میلیون ریال.</span>
+        </div>
+        <div class="ps-field">
+          <label class="ps-label" for="plan">طرح بازپرداخت</label>
+          <select class="ps-select" id="plan"><option>۶ ماهه</option><option selected>۱۲ ماهه</option><option>۱۸ ماهه</option></select>
+        </div>
+        <div class="ps-field">
+          <label class="ps-label" for="note">توضیحات</label>
+          <textarea class="ps-textarea" id="note" placeholder="اختیاری"></textarea>
+        </div>
+        <div class="ps-field">
+          <label class="ps-label" for="disabled">فیلد غیرفعال</label>
+          <input class="ps-input" id="disabled" disabled value="قابل ویرایش نیست">
+        </div>
+        <fieldset class="ps-fieldset">
+          <legend>مدارک ارسالی</legend>
+          <label class="ps-check"><input type="checkbox" checked> کارت ملی</label>
+          <label class="ps-check"><input type="checkbox"> فیش حقوقی</label>
+          <label class="ps-check"><input type="checkbox"> سند ملکی</label>
+        </fieldset>
+        <label class="ps-check"><input type="checkbox"> قوانین و مقررات اعطای تسهیلات را خوانده‌ام و می‌پذیرم، از جمله اینکه در صورت تأخیر بیش از ۳۰ روز در پرداخت اقساط، جریمه دیرکرد طبق بند ۷ قرارداد محاسبه می‌شود و اطلاعات من به سامانه اعتبارسنجی ارسال خواهد شد.</label>
+        <div class="ps-field">
+          <span class="ps-label" id="file-l">تصویر کارت ملی</span>
+          <div class="ps-file"><input type="file" accept="image/*,.pdf" aria-labelledby="file-l" aria-describedby="file-h"></div>
+          <span class="ps-help" id="file-h">JPG، PNG یا PDF، حداکثر ۵ مگابایت.</span>
+        </div>
+        <button type="button" class="ps-btn ps-btn--add">+ افزودن ضامن</button>
+        <div class="ps-actions">
+          <button class="ps-btn">ادامه</button>
+          <button type="button" class="ps-btn ps-btn--secondary">ذخیره پیش‌نویس</button>
+          <button type="button" class="ps-btn ps-btn--danger">حذف درخواست</button>
+          <button type="button" class="ps-btn" disabled>غیرفعال</button>
+          <button type="button" class="ps-btn" aria-busy="true" aria-disabled="true">در حال ارسال</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 26. Confirmation step -->
+    <section class="ps-confirm" aria-labelledby="c-t">
+      <h2 class="ps-card__title" id="c-t">بررسی پیش از ارسال</h2>
+      <dl class="ps-kv">
+        <dt>نام</dt><dd>مریم احمدی</dd>
+        <dt>کد ملی</dt><dd><span class="ps-id">0012345678</span></dd>
+        <dt>مبلغ</dt><dd>۲۵۰٬۰۰۰٬۰۰۰ ریال</dd>
+        <dt>طرح</dt><dd>۱۲ ماهه</dd>
+      </dl>
+      <div class="ps-actions"><button class="ps-btn">تأیید و ارسال</button><button class="ps-btn ps-btn--secondary">بازگشت و ویرایش</button></div>
+    </section>
+
+    <!-- 27. Alerts, 28. Empty state -->
+    <section class="ps-card" aria-labelledby="a-t">
+      <h2 class="ps-card__title" id="a-t">پیام‌ها</h2>
+      <div class="ps-alert" role="status"><svg class="ps-icon" aria-hidden="true"><use href="#i-info"/></svg><div><p class="ps-alert__title">اطلاع</p><p class="ps-alert__msg">پاسخ اعتبارسنجی معمولاً تا ۲ ساعت آماده می‌شود.</p></div></div>
+      <div class="ps-alert ps-alert--success" role="status"><svg class="ps-icon" aria-hidden="true"><use href="#i-check"/></svg><div><p class="ps-alert__title">ثبت شد</p><p class="ps-alert__msg">درخواست شما با شناسه <span class="ps-id">REQ-001245</span> ثبت شد.</p></div></div>
+      <div class="ps-alert ps-alert--error" role="alert"><svg class="ps-icon" aria-hidden="true"><use href="#i-alert"/></svg><div><p class="ps-alert__title">خطا</p><p class="ps-alert__msg">ارتباط با سامانه برقرار نشد. دوباره تلاش کنید.</p></div></div>
+      <div class="ps-alert ps-alert--warning" role="status"><svg class="ps-icon" aria-hidden="true"><use href="#i-warn"/></svg><div><p class="ps-alert__title">توجه</p><p class="ps-alert__msg">مدرک فیش حقوقی هنوز بارگذاری نشده است.</p></div></div>
+      <p class="ps-empty">موردی برای نمایش وجود ندارد.</p>
+    </section>
+
+    <!-- 29. Role chooser -->
+    <section id="roles" aria-labelledby="r-t">
+      <h2 class="ps-section-title" id="r-t" style="margin-block-end:var(--ps-4)">ورود به‌عنوان</h2>
+      <div class="ps-roles">
+        <div class="ps-role"><div class="ps-role__head">مشتری</div>
+          <button type="button" class="ps-role__user" aria-pressed="true"><strong>مریم احمدی</strong><span>مشتری جدید</span></button>
+          <button type="button" class="ps-role__user" aria-pressed="false"><strong>رضا کریمی</strong><span>مشتری با سابقه</span></button></div>
+        <div class="ps-role"><div class="ps-role__head">فروشنده</div>
+          <button type="button" class="ps-role__user" aria-pressed="false"><strong>فروشگاه نور</strong><span>پذیرنده</span></button></div>
+        <div class="ps-role"><div class="ps-role__head">کارشناس</div>
+          <button type="button" class="ps-role__user" aria-pressed="false"><strong>علی رضایی</strong><span>کارشناس اعتبار</span></button></div>
+        <div class="ps-role"><div class="ps-role__head">مدیر</div>
+          <button type="button" class="ps-role__user" aria-pressed="false"><strong>سارا نوری</strong><span>مدیر شعبه</span></button></div>
+        <div class="ps-role"><div class="ps-role__head">پشتیبانی</div>
+          <button type="button" class="ps-role__user" aria-pressed="false"><strong>حمید صالحی</strong><span>اپراتور</span></button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Showcase only: theme and direction toggles.
+  const root = document.documentElement;
+  document.getElementById('theme').onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+  };
+  document.getElementById('dir').onclick = () => { root.dir = root.dir === 'rtl' ? 'ltr' : 'rtl'; };
+  document.querySelectorAll('.ps-role__user').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.ps-role__user').forEach(x => x.setAttribute('aria-pressed', x === b));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+/* Glue between the app's markup and the PayStar UI kit (paystar-ui-kit/paystar-ui.css is imported first).
+   Only layout helpers live here; colours, type, spacing and components come from the kit tokens. */
+.ps-container { max-inline-size: 1240px; margin-inline: auto; padding: var(--ps-6); display: flex; flex-direction: column; gap: var(--ps-5); }
+.ps-container:has(> .ps-layout) { max-inline-size: none; padding: 0; display: block; }
+@media (max-width: 768px) { .ps-container { padding: var(--ps-4); } }
+
+h1:not([class]) { font-size: var(--ps-fs-page-title); line-height: 1.4; font-weight: 700; }
+h2:not([class]) { font-size: var(--ps-fs-lg); font-weight: 600; }
+h3:not([class]) { font-size: var(--ps-fs-body); font-weight: 700; color: var(--ps-text-muted); }
+ol:not([class]), ul:not([class]) { margin: 0; padding-inline-start: 1.2em; display: flex; flex-direction: column; gap: var(--ps-1); }
+
+/* Plain wrapper divs inside cards/grids stack their children with kit spacing */
+.ps-card > div:not([class]), .ps-grid > div:not([class]), .ps-card > section:not([class]) { display: flex; flex-direction: column; gap: var(--ps-3); min-inline-size: 0; }
+.ps-card .ps-card { background: var(--ps-surface-2); }
+.ps-main > *, .ps-container > * { min-inline-size: 0; }
+.ps-actions { align-items: center; }
+
+/* Amounts: LTR isolate, never wrap */
+.num { direction: ltr; unicode-bidi: isolate; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Text-only alerts (no icon column) */
+.ps-alert--block { display: block; }
+.ps-alert--block.ps-alert--error { color: var(--ps-error-text); }
+.ps-alert--block.ps-alert--success { color: var(--ps-success-text); }
+
+/* Accordion bodies written without the __body wrapper */
+details.ps-accordion > :not(summary) { margin: 0 var(--ps-4) var(--ps-4); }
+details.ps-accordion > .ps-grid { margin-block-start: 0; }
+
+/* Tables: long Persian text may wrap; amounts and IDs stay on one line */
+.ps-table td { white-space: normal; vertical-align: middle; }
+.ps-table td .ps-badge, .ps-table td .ps-id { white-space: nowrap; }
+
+/* Inline forms inside table cells */
+.ps-inline-form { flex-wrap: wrap; }
+.ps-inline-field { display: inline-flex; }
+.ps-inline-msg { flex-basis: 100%; }
+.ps-inline-msg .ps-alert { padding: var(--ps-2) var(--ps-3); }
+.ps-inline-msg .ps-alert__msg, .ps-inline-msg .ps-alert__title { font-size: var(--ps-fs-small); }
+.money { white-space: nowrap; }
+
+/* =====================================================================================
+   Mobile app (≤768px). App-level extensions built only from PayStar UI kit tokens:
+   compact app bar, bottom tab bar + «بیشتر» sheet, 2-up grids, tables rendered as cards.
+   ===================================================================================== */
+.app-short { display: none; }
+.app-tabbar, .app-sheet-backdrop { display: none; }
+@keyframes app-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes app-fade { from { opacity: 0; } }
+
+@media (max-width: 768px) {
+  /* App bar + notice */
+  .app-long { display: none; } .app-short { display: inline; }
+  .ps-notice { padding: 6px var(--ps-3); font-size: 11px; }
+  .ps-notice .ps-icon { inline-size: 16px; block-size: 16px; }
+  .ps-topbar { position: sticky; inset-block-start: 0; z-index: 20; min-block-size: 52px; padding: var(--ps-2) var(--ps-4); flex-wrap: nowrap; }
+  .ps-topbar__brand { font-size: var(--ps-fs-body); }
+  .app-hide-sm { display: none !important; }
+  .ps-topbar__end > span { display: none; }
+  body:has(.ps-layout) .ps-topbar__end { display: none; } /* user, clock, role switch and logout live in the «بیشتر» sheet */
+
+  /* Shell: no sidebar; content clears the tab bar and the home indicator */
+  .ps-layout { display: block; min-block-size: 0; }
+  .ps-sidebar { display: none; }
+  .ps-main { padding: var(--ps-4) var(--ps-4) calc(88px + env(safe-area-inset-bottom)); gap: var(--ps-4); }
+  .ps-container { padding: var(--ps-4); gap: var(--ps-4); }
+  .ps-breadcrumbs { display: none; }
+  .ps-page-title { font-size: var(--ps-fs-section); }
+  .ps-section-title { font-size: var(--ps-fs-lg); }
+  .ps-card { padding: var(--ps-4); gap: var(--ps-3); border-radius: 16px; }
+  .ps-card .ps-card { padding: var(--ps-3); }
+
+  /* Grids: stats, tiles and products 2-up; anything holding fields or cards stacks */
+  .ps-grid, .ps-grid--wide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .ps-grid:has(> .ps-field), .ps-grid:has(> .ps-card), .ps-grid:has(> div:not([class])) { grid-template-columns: minmax(0, 1fr); }
+  .ps-stat { padding: var(--ps-3); }
+  .ps-stat__value { font-size: 17px; }
+  .ps-tile { padding: var(--ps-3); gap: 6px; }
+  .ps-tile__icon { inline-size: 36px; block-size: 36px; }
+  .ps-tile__title { font-size: var(--ps-fs-body); }
+  .ps-tile__desc { display: none; }
+  .ps-count { inset-block-start: 10px; inset-inline-end: 10px; }
+  .ps-roles { grid-template-columns: minmax(0, 1fr); }
+
+  /* Tables become a list of cards: one label/value row per column */
+  .app-cards-sm { border: 0; background: transparent; overflow: visible; border-radius: 0; }
+  .app-cards-sm .ps-table, .app-cards-sm tbody, .app-cards-sm tr, .app-cards-sm td { display: block; inline-size: 100%; }
+  .app-cards-sm thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .app-cards-sm tr { background: var(--ps-surface); border: 1px solid var(--ps-border-soft); border-radius: var(--ps-r-field); padding: var(--ps-1) var(--ps-3); margin-block-end: var(--ps-2); }
+  .app-cards-sm tbody tr:hover td { background: transparent; }
+  .app-cards-sm td { display: flex; justify-content: space-between; align-items: center; gap: var(--ps-3); padding: var(--ps-2) 0; text-align: end; white-space: normal; border-block-end: 1px dashed var(--ps-border-soft); }
+  .app-cards-sm tbody tr td:last-child { border-block-end: 0; }
+  .app-cards-sm td::before { content: attr(data-label); flex: none; max-inline-size: 45%; text-align: start; color: var(--ps-text-muted); font-size: var(--ps-fs-small); font-weight: 600; }
+  .app-cards-sm td:not([data-label])::before, .app-cards-sm td[data-label='']::before { content: none; }
+  .app-cards-sm td:not([data-label]), .app-cards-sm td[data-label=''] { justify-content: flex-start; text-align: start; }
+  .app-cards-sm td:empty { display: none; }
+  .app-cards-sm tr:has(.ps-table__empty) { padding: 0; }
+  .app-cards-sm .ps-table__empty { display: block; text-align: center; border: 0; }
+  .app-cards-sm td .ps-inline-form { inline-size: 100%; }
+
+  /* Forms: full-width actions, 16px inputs (no iOS zoom), stacked inline forms */
+  .ps-input, .ps-select, .ps-textarea { font-size: 16px; }
+  .ps-actions > .ps-btn, .ps-form .ps-actions .ps-btn { flex: 1 1 auto; }
+  .ps-inline-field, .ps-inline-form > .ps-select, .ps-inline-form > .ps-input { flex: 1 1 140px; }
+  .ps-inline-form .ps-btn { flex: 1 1 auto; }
+  .ps-kv { grid-template-columns: minmax(0, 1fr); }
+  .ps-confirm, .ps-document { padding: var(--ps-4); }
+  .ps-stepper__step { min-inline-size: 72px; }
+
+  /* Bottom tab bar */
+  .app-tabbar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 30;
+    padding: 6px var(--ps-1) calc(6px + env(safe-area-inset-bottom)); background: var(--ps-surface); border-block-start: 1px solid var(--ps-border-soft); box-shadow: var(--ps-shadow-overlay); }
+  .app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-block-size: 52px; padding: var(--ps-1) 2px;
+    border: 0; background: none; font: inherit; font-size: 11px; font-weight: 600; color: var(--ps-text-muted); text-decoration: none; cursor: pointer; border-radius: var(--ps-r-md); }
+  .app-tab > span { max-inline-size: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .app-tab .ps-icon { box-sizing: content-box; padding: 3px 14px; border-radius: var(--ps-r-full); }
+  .app-tab[aria-current='page'] { color: var(--ps-primary); }
+  .app-tab[aria-current='page'] .ps-icon { background: var(--ps-success-bg); }
+
+  /* «بیشتر» bottom sheet */
+  .app-sheet-backdrop { display: block; position: fixed; inset: 0; z-index: 40; background: var(--ps-overlay); animation: app-fade 150ms; }
+  .app-sheet { position: absolute; inset-inline: 0; inset-block-end: 0; max-block-size: 85dvh; overflow-y: auto; display: flex; flex-direction: column; gap: var(--ps-3);
+    padding: var(--ps-2) var(--ps-4) calc(var(--ps-4) + env(safe-area-inset-bottom)); background: var(--ps-surface); border-radius: var(--ps-r-box) var(--ps-r-box) 0 0; animation: app-up 220ms var(--ps-ease); }
+  .app-sheet__handle { inline-size: 40px; block-size: 4px; margin: var(--ps-1) auto; border-radius: 2px; background: var(--ps-border); }
+  .app-sheet .ps-nav { flex: none; }
+  .app-sheet .ps-nav__link { min-block-size: 52px; }
+  .app-sheet .ps-nav__link > span { display: flex; flex-direction: column; line-height: 1.35; }
+  .app-sheet__desc { font-size: 11px; font-weight: 400; color: var(--ps-text-subtle); }
+  .app-sheet .ps-actions .ps-btn { flex: 1 1 40%; }
+}
+@media (prefers-reduced-motion: reduce) { .app-sheet, .app-sheet-backdrop { animation: none; } }
+@media (max-width: 768px) {
+  /* The kit turns .ps-nav into a horizontal strip and hides the user block on mobile; inside the sheet we want a vertical list with the user */
+  .app-sheet .ps-nav { flex-direction: column; }
+  .app-sheet .ps-sidebar__user { display: flex; }
+  .app-sheet .ps-nav__link { white-space: normal; }
+  /* Stepper becomes a vertical list on phones */
+  .ps-stepper { flex-direction: column; align-items: stretch; gap: var(--ps-2); overflow: visible; }
+  .ps-stepper__line { display: none; }
+  .ps-stepper__step { flex-direction: row; align-items: center; gap: var(--ps-3); min-inline-size: 0; text-align: start; }
+  .ps-stepper__dot { inline-size: 28px; block-size: 28px; flex: none; }
+}
+@media (max-width: 768px) {
+  /* Focus/scroll-into-view never parks a control under the sticky app bar or the fixed tab bar */
+  html:has(.ps-layout) { scroll-padding-block: 64px calc(96px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 768px) {
+  /* Long IDs/lists inside card-rows wrap instead of widening the page (a wider page makes mobile browsers zoom out) */
+  .app-cards-sm td > * { min-inline-size: 0; max-inline-size: 100%; }
+  .app-cards-sm td, .app-cards-sm td .ps-id { overflow-wrap: anywhere; }
+  .app-cards-sm td .ps-id { white-space: normal; }
+  .ps-card { overflow-wrap: anywhere; }
+}
+
+/* Segmented choice (installment count) and amount slider — app-level, built on kit tokens */
+.app-segment { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--ps-1); padding: var(--ps-1); background: var(--ps-surface-2); border: 1px solid var(--ps-border-soft); border-radius: var(--ps-r-field); }
+.app-segment__opt { min-block-size: 40px; border: 0; border-radius: 11px; background: transparent; font: inherit; font-weight: 600; color: var(--ps-text-muted); cursor: pointer; }
+.app-segment__opt[aria-checked='true'] { background: var(--ps-primary); color: var(--ps-on-primary); }
+.app-segment__opt:focus-visible { outline: var(--ps-focus); outline-offset: 2px; }
+.app-range { inline-size: 100%; accent-color: var(--ps-primary); }

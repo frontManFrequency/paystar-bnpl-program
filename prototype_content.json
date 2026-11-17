@@ -1,0 +1,186 @@
+{
+  "version": "1.0",
+  "simulation_only": true,
+  "locale": "fa-IR",
+  "direction": "rtl",
+  "money": {
+    "storage_currency": "IRR",
+    "display_unit": "تومان",
+    "conversion_divisor": 10,
+    "exact_secondary_unit": "ریال"
+  },
+  "calendar": {
+    "timezone": "Asia/Tehran",
+    "display": "persian",
+    "business_weekdays_iso": [
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "mock_holidays": [
+      "2026-11-18"
+    ],
+    "mock_holiday_label": "تعطیلی ساختگی برای آزمون زمان‌بندی؛ تقویم رسمی نیست",
+    "month_arithmetic": "Jalali original-day anchor with clamp; store Gregorian date/UTC timestamp too"
+  },
+  "input_validation": {
+    "demo_identity": "DEMO-NID-* and DEMO-MOBILE-* accepted only when APP_ENV=prototype and mock adapter selected",
+    "production_national_id": "Normalize Persian/Arabic digits; exactly 10 digits, reject all-equal digits. Sum first nine digits times weights 10..2. r=sum%11; checksum=r if r<2 else 11-r; compare final digit. Passing checksum never replaces provider verification.",
+    "production_mobile": "Normalize to +98 followed by ten digits beginning 9; verify OTP and identity ownership.",
+    "production_card": "Tokenize 16-digit card input; validate Luhn and provider ownership; discard PAN immediately, never persist/log it.",
+    "production_iban": "IR plus 24 digits; rearrange first four characters to end, replace letters with A=10..Z=35, require decimal integer mod97=1 and provider owner match.",
+    "birth_date": "Valid calendar date; convert Jalali input to Gregorian; age 18..70 inclusive on application local date.",
+    "amount": "Normalize digits; integer rial string, positive when specified; prices multiple of 10 rial. No exponent, comma, decimal or minus sign at API boundary.",
+    "mock_tax": "tax_bps=0 is a fixture assumption, not a legal exemption."
+  },
+  "consents": [
+    {
+      "purpose": "IDENTITY",
+      "version": "DEMO-1",
+      "title": "رضایت استعلام هویت",
+      "text": "این نسخه نمایشی است. با بررسی اطلاعات هویتی و تطبیق شماره همراه برای تشکیل و بررسی همین درخواست موافقم. اطلاعات واقعی وارد نکنید. در نسخه عملیاتی، نام ارائه‌دهنده مجاز، مدت نگهداری و حقوق مربوط به داده پیش از تأیید نمایش داده می‌شود.",
+      "required": true
+    },
+    {
+      "purpose": "ACCOUNT",
+      "version": "DEMO-1",
+      "title": "رضایت تطبیق حساب",
+      "text": "با استعلام مشخصات حساب مرتبط با کارت و تطبیق مالک آن با هویت متقاضی برای پرداخت و بازپرداخت همین پرونده موافقم. در این محیط فقط داده ساختگی استفاده می‌شود.",
+      "required": true
+    },
+    {
+      "purpose": "CREDIT_REPORT",
+      "version": "DEMO-1",
+      "title": "رضایت اعتبارسنجی",
+      "text": "با دریافت گزارش اعتبارسنجی و بررسی تعهدات و توان بازپرداخت برای این درخواست موافقم. هزینه نمایشی استعلام ۵۰٬۰۰۰ تومان است. پس از اجرای موفق استعلام، رد درخواست موجب استرداد هزینه نمی‌شود؛ دریافت تکراری یا عدم ارائه خدمت مسترد می‌شود.",
+      "required": true
+    },
+    {
+      "purpose": "DATA_PROCESSING",
+      "version": "DEMO-1",
+      "title": "پردازش اطلاعات پرونده",
+      "text": "با استفاده از اطلاعات لازم برای بررسی درخواست، ارائه صورتحساب، پیگیری پرداخت و رسیدگی به اختلاف در حدود نقش طرف‌های اعلام‌شده موافقم. اطلاعات پرونده به سایر کلینیک‌ها نمایش داده نمی‌شود. این رضایت جایگزین متن حقوقی تأییدشده نسخه عملیاتی نیست.",
+      "required": true
+    },
+    {
+      "purpose": "MARKETING",
+      "version": "DEMO-1",
+      "title": "دریافت پیشنهادها",
+      "text": "مایلم پیام‌های اختیاری معرفی خدمات دریافت کنم. این انتخاب بر اعتبارسنجی اثر ندارد و هر زمان قابل لغو است.",
+      "required": false
+    }
+  ],
+  "statuses": {
+    "DRAFT": "پیش‌نویس",
+    "IDENTITY_PENDING": "در انتظار احراز هویت",
+    "FEE_PENDING": "در انتظار پرداخت هزینه استعلام",
+    "ASSESSMENT_PENDING": "در انتظار اعتبارسنجی",
+    "PAYSTAR_REVIEW": "در حال بررسی پی‌استار",
+    "CREDITOR_REVIEW": "در حال بررسی اعتباردهنده",
+    "NEEDS_CORRECTION": "نیازمند تکمیل",
+    "REJECTED": "رد شده",
+    "APPROVED": "سقف تأیید شده",
+    "CONTRACT_PENDING": "در انتظار قرارداد",
+    "ACTIVE": "فعال",
+    "HELD": "مصرف اعتبار متوقف است",
+    "CONFIRMED": "تأیید شده",
+    "AWAITING_FUNDS": "در انتظار واریز به کلینیک",
+    "READY_FOR_SERVICE": "آماده ارائه خدمت",
+    "OVERDUE": "سررسید گذشته",
+    "PAID": "پرداخت شده",
+    "UNKNOWN": "در انتظار تأیید نتیجه",
+    "TRANSFERRED_PENDING_CASH": "انتقال حقوق انجام شده؛ در انتظار وجه بانک",
+    "FUNDED": "وجه بازپرداخت آماده برداشت است",
+    "RETURNED": "مرجوعی تأیید شده"
+  },
+  "errors": {
+    "INSUFFICIENT_CREDIT": "مانده اعتبار برای این خرید کافی نیست.",
+    "AFFORDABILITY_EXCEEDED": "مجموع اقساط این ماه از حد مجاز توان بازپرداخت بیشتر است.",
+    "CREDITOR_MISMATCH": "اعتباردهنده یا ذی‌نفع با قرارداد تطبیق ندارد.",
+    "INVALID_TRANSITION": "وضعیت پرونده تغییر کرده است؛ اطلاعات را تازه‌سازی کنید.",
+    "FORBIDDEN": "برای این اقدام دسترسی ندارید.",
+    "IDEMPOTENCY_CONFLICT": "این درخواست قبلاً با اطلاعات دیگری ثبت شده است.",
+    "RECOURSE_NOT_PERMITTED": "برای نکول عادی این قرارداد بدون حق رجوع، مطالبه بازخرید مجاز نیست.",
+    "POLICY_NOT_RELEASED": "فعال‌سازی عملیاتی این شرایط هنوز مجوز انتشار ندارد.",
+    "EXTERNAL_PENDING": "نتیجه قطعی سرویس هنوز دریافت نشده است.",
+    "MAKER_CHECKER_REQUIRED": "این اقدام باید توسط کاربر مجاز دیگری تأیید شود."
+  },
+  "notifications": {
+    "otp": "کد ورود نمایشی پی‌استار: {{code}}",
+    "status_changed": "وضعیت درخواست شما تغییر کرد. برای مشاهده وارد حساب پی‌استار شوید.",
+    "installment_reminder": "یادآوری برنامه پرداخت پی‌استار؛ جزئیات را در حساب خود مشاهده کنید.",
+    "creditor_changed": "اعتباردهنده پرونده شما به {{creditor_name}} تغییر کرد. مبلغ و تاریخ اقساط تغییر نکرده است. جزئیات مسیر پرداخت در حساب شما قرار دارد.",
+    "refund_approved": "بازپرداخت خرید شما ثبت شد. مبلغ قابل برداشت و وضعیت آن را در حساب خود ببینید."
+  },
+  "agreement_templates": {
+    "watermark": "سند نمایشی — فاقد اثر مالی و حقوقی واقعی",
+    "customer_contract_sections": [
+      "identities(customer,creditor,clinic,servicer)",
+      "service_order_and_financed_principal",
+      "separate_cash_contribution",
+      "four_installment_table_principal_commission_due_dates",
+      "total_price_and_assessment_fee",
+      "credit_limit_and_permitted_clinics",
+      "security_identifiers_beneficiary_custody",
+      "payment_destination_and_receipt_rules",
+      "early_repayment_remaining_commission",
+      "full_and_partial_return_component_algorithm",
+      "refund_wallet_and_withdrawal",
+      "overdue_hold_and_zero_baseline_penalty",
+      "collections_authority_and_guarantee_order",
+      "assignment_notice_only_when_model3",
+      "privacy_consent_evidence_and_support",
+      "policy_hash_and_signature_proof"
+    ],
+    "clinic_agreement_sections": [
+      "clinic_legal_identity_and_bank_account",
+      "referral_and_service_responsibility",
+      "creditor_by_model",
+      "settlement_gross_timing_and_optional_reserve",
+      "clinic_return_approval_and_reimbursement",
+      "platform_service_fees_and_tax",
+      "guarantee_type_beneficiary_coverage_trigger_cap_recovery_order",
+      "guarantee_assignment_if_enabled",
+      "service_evidence_and_customer_disputes",
+      "data_minimization",
+      "termination_keeps_existing_servicing"
+    ],
+    "bank_model1_sections": [
+      "PayStar_borrower",
+      "commitment_draws",
+      "independent_principal_charge_schedule",
+      "covenants",
+      "collateral",
+      "risk_sharing_NONE_unless_amended",
+      "reporting_scope"
+    ],
+    "bank_model3_sections": [
+      "lot_eligibility_and_snapshot",
+      "price_discount_fee_holdback",
+      "recourse_mode",
+      "legal_effective_time_vs_cash",
+      "Sayad_and_custody_transfer",
+      "servicing_and_collection_route",
+      "warranty_and_service_return_indemnity",
+      "recourse_cure_repurchase_reverse_transfer",
+      "guarantee_transfer_and_cap_history"
+    ],
+    "bank_model4_sections": [
+      "customer_borrower_bank_creditor",
+      "bank_final_decision",
+      "direct_or_segregated_disbursement",
+      "bank_payment_destination",
+      "agency_mandate_and_handoff",
+      "refund_acknowledgment_and_commission_reversal",
+      "bank_beneficiary_guarantee_order",
+      "separate_PayStar_service_invoice"
+    ]
+  },
+  "mock_document_asset": {
+    "mime_type": "image/png",
+    "base64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a6S8AAAAASUVORK5CYII=",
+    "description": "Synthetic 1px placeholder only. Mock storage serves this for seeded object keys; UI must show DEMO watermark, document category and fixture identity text, never imply a real ID scan. Uploaded demo files use their actual hashes; seeded DEMO-HASH values are accepted only by mock storage."
+  }
+}
